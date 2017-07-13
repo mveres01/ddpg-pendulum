@@ -3,7 +3,7 @@
 Lillicrap, Timothy P., et al. "Continuous control with deep reinforcement
 learning." arXiv preprint arXiv:1509.02971 (2015).
 
-Currently setup to run on OpenAI cartpole environment.
+Currently setup to run on OpenAI Pendulum-v0 environment.
 """
 import numpy as np
 import theano
@@ -170,18 +170,6 @@ class Critic(object):
             state = state[np.newaxis]
         return self.action_grads(state, action)
     
-    def predict(self, state, action):
-        """Returns a prediction from the current Q-network."""
-        if state.ndim == 1:
-            state = state[np.newaxis]
-        return self.predict_fn(state, action)
-
-    def predict_target(self, state, action):
-        """Returns a prediction from the target Q-network."""
-        if state.ndim == 1:
-            state = state[np.newaxis]
-        return self.target_fn(state, action)
-
     def update_target(self, tau=None):
         """Updates target network by linearily blending network weights."""
         if tau is None:
