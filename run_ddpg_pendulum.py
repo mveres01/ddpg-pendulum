@@ -24,7 +24,7 @@ MAX_STEPS = 500
 n_iter = 0
 
 action_scale = env.action_space.high[0]
-q_learner = Agent(state_shape, num_actions, action_scale)
+learner = Agent(state_shape, num_actions, action_scale)
 
 
 def exploration(mu, scale, size=None):
@@ -45,7 +45,7 @@ for i in xrange(MAX_EPISODES):
         env.render()
 
         # Add noise and make sure action stays within bounds
-        action = q_learner.choose_action(state)
+        action = learner.choose_action(state)
         action = np.clip(action + noise[t], -action_scale, action_scale)
 
         next_state, reward, done, _ = env.step(action)
@@ -56,7 +56,7 @@ for i in xrange(MAX_EPISODES):
 
         total_rewards += reward
 
-        q_learner.update_buffer(state, action, reward, next_state, done)
+        learner.update_buffer(state, action, reward, next_state, done)
        
         state = next_state
 
@@ -65,7 +65,7 @@ for i in xrange(MAX_EPISODES):
         if n_iter < 10000:
             continue
     
-        q_learner.update_policy()
+        learner.update_policy()
 
 
     episode_history.append(total_rewards)

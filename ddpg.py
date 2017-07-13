@@ -197,7 +197,7 @@ class Critic(object):
 
 
 class Agent(object):
-    """Implements an agent that follows deep Q-learning policy."""
+    """Implements an agent that follows DDPG algorithm."""
     def __init__(self, state_shape, num_actions, action_scale=2.0,
                  discount=0.99, tau=0.01, actor_lrate=0.001,
                  critic_lrate=0.01, l2_decay=1e-3, batch_size=64,
